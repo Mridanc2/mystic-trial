@@ -4617,11 +4617,12 @@ async function trackVisit() {
   const el = document.getElementById("visit-count");
   const daysEl = document.getElementById("days-active-num");
   if (!el) return;
-  const NAMESPACE = "mystic-trial-xxx-1494";
+  // Fresh counter for launch (reset May 2026)
+  const NAMESPACE = "mystic-trial-xxx-1494-launch";
   const KEY = "visits";
-  const CACHE = "mt_xxx_visits";
-  const LOCAL_FALLBACK = "mt_xxx_visits_local";
-  const FIRST_VISIT = "mt_first_visit";
+  const CACHE = "mt_xxx_visits_v2";
+  const LOCAL_FALLBACK = "mt_xxx_visits_local_v2";
+  const FIRST_VISIT = "mt_first_visit_v2";
 
   // ───── Days active (since first visit on this device) ─────
   let firstVisit = parseInt(localStorage.getItem(FIRST_VISIT) || "", 10);
