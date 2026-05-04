@@ -4030,10 +4030,11 @@ const I18N = {
 const RTL_LANGS = ["ar", "he"];
 
 function detectLang() {
+  // Use saved preference if user has explicitly chosen one before;
+  // otherwise default to English (ignore browser locale).
   const saved = localStorage.getItem("lang");
   if (saved && I18N[saved]) return saved;
-  const browser = (navigator.language || "en").slice(0, 2).toLowerCase();
-  return I18N[browser] ? browser : "en";
+  return "en";
 }
 
 let currentLang = detectLang();
