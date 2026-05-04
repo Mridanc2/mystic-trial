@@ -2474,15 +2474,12 @@ footer .formula {
   </div>
 </div>
 
-<footer style="opacity: 0.4; font-size: 0.6rem; padding: 1.5rem 0; text-align: center;"><div data-i18n="footer_credit">crafted for the alliance · v3.5</div></footer>
+<footer style="opacity: 0.4; font-size: 0.6rem; padding: 1.5rem 0; text-align: center;"><div data-i18n="footer_credit">crafted for the alliance · v4.1</div></footer>
 
 <div id="share-toast" role="status" aria-live="polite"></div>
 
-<div id="live-preview" style="display:none;">
-  <div class="lp-label" data-i18n="live_preview">Live Win Rate</div>
-  <div class="lp-value">--%</div>
-  <div class="lp-ratio">--/--/--</div>
-</div>
+<!-- Live Win Rate widget removed in v4.1 (was confusing duplicate of Predicted Win Rate) -->
+<div id="live-preview" style="display:none !important;"></div>
 
 <div id="compare-modal" role="dialog" aria-modal="true">
   <div class="compare-content">
@@ -2562,6 +2559,7 @@ const I18N = {
     action_caution: "Risky engagement. Send only if you can afford the losses.",
     action_engage: "Send the recommended ratio. Expected ~<b>{wr}%</b> win rate.",
     action_dominant: "Send the recommended ratio. Easy win at ~<b>{wr}%</b>.",
+    rng_tie: "⚠ All ratios statistically tied — battle is unwinnable. Random variation (RNG) determines the small differences shown.",
     label_dungeon: "Dungeon",
     label_stage: "Stage",
     stage_default: "Stages 1–9 (33/33/34)",
@@ -2578,7 +2576,7 @@ const I18N = {
     heatmap: "🗺️ Win-Rate Heatmap",
     heatmap_desc: "Each square = a tested ratio · golden ring = optimal · arc% = 100 − inf − cav",
     tip: "✦ Expedition mode has high RNG variance. Even at 30% predicted win rate, 1 in 5 attempts often clears. Use all 5 daily attempts.",
-    footer_credit: "crafted for the alliance · v3.5",
+    footer_credit: "crafted for the alliance · v4.1",
     share_copied: "✓ Link copied to clipboard",
     share_title: "Mystic Trial Result",
     no_results_yet: "Run an optimization first to share results",
@@ -2716,7 +2714,7 @@ const I18N = {
     heatmap: "🗺️ Mapa de Calor",
     heatmap_desc: "Cada cuadrado = un ratio probado · anillo dorado = óptimo · arc% = 100 − inf − cav",
     tip: "✦ Modo expedición tiene alta varianza RNG. Incluso con 30% predicho, 1 de 5 intentos suele pasar. Usa los 5 intentos diarios.",
-    footer_credit: "creado para la alianza · v3.5",
+    footer_credit: "creado para la alianza · v4.1",
     share_copied: "✓ Enlace copiado",
     share_title: "Resultado Mystic Trial",
     no_results_yet: "Ejecuta una optimización primero para compartir",
@@ -2854,7 +2852,7 @@ const I18N = {
     heatmap: "🗺️ Mapa de Calor",
     heatmap_desc: "Cada quadrado = uma proporção · anel dourado = ótima · arc% = 100 − inf − cav",
     tip: "✦ Modo Expedição tem alta variação RNG. Mesmo a 30%, 1 em 5 tentativas geralmente passa. Use as 5 diárias.",
-    footer_credit: "feito para a aliança · v3.5",
+    footer_credit: "feito para a aliança · v4.1",
     share_copied: "✓ Link copiado",
     share_title: "Resultado Mystic Trial",
     no_results_yet: "Execute uma otimização primeiro",
@@ -2992,7 +2990,7 @@ const I18N = {
     heatmap: "🗺️ Carte de Chaleur",
     heatmap_desc: "Chaque carré = un ratio testé · anneau doré = optimal · arc% = 100 − inf − cav",
     tip: "✦ Mode Expédition a une grande variance RNG. Même à 30%, 1 sur 5 passe souvent. Utilisez les 5 essais quotidiens.",
-    footer_credit: "fait pour l'alliance · v3.5",
+    footer_credit: "fait pour l'alliance · v4.1",
     share_copied: "✓ Lien copié",
     share_title: "Résultat Mystic Trial",
     no_results_yet: "Lancez d'abord une optimisation",
@@ -3130,7 +3128,7 @@ const I18N = {
     heatmap: "🗺️ Heatmap",
     heatmap_desc: "Jedes Quadrat = ein getestetes Verhältnis · goldener Ring = optimal",
     tip: "✦ Expedition-Modus hat hohe RNG-Varianz. Selbst bei 30% gewinnt 1 von 5. Nutze alle 5 Tagesversuche.",
-    footer_credit: "für die Allianz · v3.5",
+    footer_credit: "für die Allianz · v4.1",
     share_copied: "✓ Link kopiert",
     share_title: "Mystic Trial Ergebnis",
     no_results_yet: "Erst optimieren, dann teilen",
@@ -3268,7 +3266,7 @@ const I18N = {
     heatmap: "🗺️ Mappa di Calore",
     heatmap_desc: "Ogni quadrato = un rapporto · anello dorato = ottimo",
     tip: "✦ Modalità Spedizione ha alta varianza RNG. Anche al 30%, 1 su 5 passa. Usa tutti e 5 i tentativi.",
-    footer_credit: "creato per l'alleanza · v3.5",
+    footer_credit: "creato per l'alleanza · v4.1",
     share_copied: "✓ Link copiato",
     share_title: "Risultato Mystic Trial",
     no_results_yet: "Esegui prima un'ottimizzazione",
@@ -3406,7 +3404,7 @@ const I18N = {
     heatmap: "🗺️ Тепловая карта",
     heatmap_desc: "Квадрат = соотношение · золотое кольцо = оптимум",
     tip: "✦ Режим экспедиции имеет высокую RNG-вариативность. Даже при 30%, 1 из 5 проходит. Используйте все 5 попыток.",
-    footer_credit: "для альянса · v3.5",
+    footer_credit: "для альянса · v4.1",
     share_copied: "✓ Ссылка скопирована",
     share_title: "Результат Mystic Trial",
     no_results_yet: "Сначала запустите оптимизацию",
@@ -3544,7 +3542,7 @@ const I18N = {
     heatmap: "🗺️ 胜率热图",
     heatmap_desc: "每个方块 = 一个测试比例 · 金环 = 最优",
     tip: "✦ 远征模式 RNG 方差大。即使 30% 预测胜率，5 次尝试通常 1 次成功。每天用完 5 次。",
-    footer_credit: "为联盟打造 · v3.5",
+    footer_credit: "为联盟打造 · v4.1",
     share_copied: "✓ 链接已复制",
     share_title: "Mystic Trial 结果",
     no_results_yet: "请先运行优化",
@@ -3682,7 +3680,7 @@ const I18N = {
     heatmap: "🗺️ ヒートマップ",
     heatmap_desc: "各マス = テストした比率 · 金の輪 = 最適",
     tip: "✦ 遠征モードは RNG ばらつき大。30% 予測でも 5 回中 1 回は通る。毎日 5 回全部使おう。",
-    footer_credit: "アライアンスのため · v3.5",
+    footer_credit: "アライアンスのため · v4.1",
     share_copied: "✓ リンクをコピーしました",
     share_title: "Mystic Trial 結果",
     no_results_yet: "先に最適化を実行してください",
@@ -3820,7 +3818,7 @@ const I18N = {
     heatmap: "🗺️ 히트맵",
     heatmap_desc: "각 사각형 = 테스트한 비율 · 금색 링 = 최적",
     tip: "✦ 원정 모드는 RNG 변동이 큼. 30% 예측이라도 5번 중 1번은 통과. 매일 5번 모두 사용.",
-    footer_credit: "동맹을 위해 · v3.5",
+    footer_credit: "동맹을 위해 · v4.1",
     share_copied: "✓ 링크 복사됨",
     share_title: "Mystic Trial 결과",
     no_results_yet: "먼저 최적화 실행",
@@ -3958,7 +3956,7 @@ const I18N = {
     heatmap: "🗺️ خريطة الحرارة",
     heatmap_desc: "كل مربع = نسبة مختبرة · حلقة ذهبية = الأمثل",
     tip: "✦ وضع الحملة ذو تباين RNG عالٍ. حتى عند توقع 30%، 1 من 5 محاولات تنجح. استخدم كل 5 محاولات يومية.",
-    footer_credit: "من أجل التحالف · v3.5",
+    footer_credit: "من أجل التحالف · v4.1",
     share_copied: "✓ تم نسخ الرابط",
     share_title: "نتيجة Mystic Trial",
     no_results_yet: "شغّل التحسين أولاً",
@@ -4096,7 +4094,7 @@ const I18N = {
     heatmap: "🗺️ מפת חום",
     heatmap_desc: "כל ריבוע = יחס נבדק · טבעת זהב = אופטימלי",
     tip: "✦ למצב Expedition יש שונות RNG גבוהה. גם ב-30% צפי, 1 מ-5 בדרך כלל עובר. השתמש בכל 5 הניסיונות.",
-    footer_credit: "נבנה לאלייאנס · v3.5",
+    footer_credit: "נבנה לאלייאנס · v4.1",
     share_copied: "✓ הקישור הועתק",
     share_title: "תוצאת Mystic Trial",
     no_results_yet: "הרץ אופטימיזציה קודם",
@@ -4515,7 +4513,7 @@ function findBestRatio(playerStats, totalP, enemyStats, enemyRatio, totalE, step
   // does the most damage anyway — measured by kill-efficiency-weighted
   // allocation. Better than the default [0.5, 0.2, 0.3] guess.
   if (best.winRate === 0) {
-    const edges = computeEdges(playerStats, enemyStats);
+    const { edges } = computeEdges(playerStats, enemyStats);
     let bestScore = -1;
     let bestRatio = best.ratio;
     for (const g of grid) {
@@ -4530,7 +4528,7 @@ function findBestRatio(playerStats, totalP, enemyStats, enemyRatio, totalE, step
     best = { ratio: bestRatio, winRate: 0 };
   }
 
-  best.winRate = simulateRatio(playerStats, totalP, best.ratio, enemyStats, enemyRatio, totalE, 200);
+  // Note: we don't refine winRate here anymore — caller does 500-sim verification.
   return { best, grid, earlyExit };
 }
 
@@ -4615,10 +4613,33 @@ function explainResult(playerStats, enemyStats, best, edges, totalP, totalE) {
     });
   }
 
-  // Top 3 stat gaps
-  const topGaps = gaps.slice(0, 3);
-  for (const g of topGaps) {
+  // Top 3 stat gaps — but diversify so we don't show the same stat 3 times
+  const seenStats = new Set();
+  const seenTroops = new Set();
+  const diverseGaps = [];
+  // Pass 1: take the most severe gap from distinct stat+troop combos
+  for (const g of gaps) {
     if (g.side === "even") continue;
+    const stKey = g.stat;
+    const trKey = g.troop;
+    // Skip if we already have 2 of this stat OR 2 of this troop
+    const stCount = diverseGaps.filter(d => d.stat === stKey).length;
+    const trCount = diverseGaps.filter(d => d.troop === trKey).length;
+    if (stCount >= 2) continue;
+    if (trCount >= 2) continue;
+    diverseGaps.push(g);
+    if (diverseGaps.length >= 3) break;
+  }
+  // Pass 2: if we have fewer than 3, fill with whatever is left
+  if (diverseGaps.length < 3) {
+    for (const g of gaps) {
+      if (g.side === "even") continue;
+      if (diverseGaps.includes(g)) continue;
+      diverseGaps.push(g);
+      if (diverseGaps.length >= 3) break;
+    }
+  }
+  for (const g of diverseGaps) {
     const isBad = g.side === "bad";
     const mult = isBad ? (1 / g.ratio).toFixed(1) : g.ratio.toFixed(1);
     bullets.push({
@@ -5315,15 +5336,25 @@ function renderResults(results, dungeonKey) {
   `;
 
   // Explanation card
-  const edgesForExp = computeEdges(state.player, state.enemy);
-  renderExplanation(state.player, state.enemy, best, edgesForExp,
+  const edgesResult = computeEdges(state.player, state.enemy);
+  renderExplanation(state.player, state.enemy, best, edgesResult.edges,
                     state.player.totalTroops, state.enemy.totalTroops);
 
   const delta = best.winRate - baseline.winRate;
   const badge = document.getElementById("improvement-badge");
   if (delta > 0.05) {
     badge.style.display = "block";
+    badge.style.background = "rgba(16, 185, 129, 0.1)";
+    badge.style.borderColor = "rgba(16, 185, 129, 0.3)";
+    badge.style.color = "#6ee7b7";
     badge.innerHTML = tr("improvement", { n: Math.round(delta*100) });
+  } else if (best.winRate < 0.15 && baseline.winRate < 0.15) {
+    // Both very low — RNG dominates, results are statistically tied
+    badge.style.display = "block";
+    badge.style.background = "rgba(251, 191, 36, 0.1)";
+    badge.style.borderColor = "rgba(251, 191, 36, 0.3)";
+    badge.style.color = "#fbbf24";
+    badge.innerHTML = tr("rng_tie");
   } else {
     badge.style.display = "none";
   }
@@ -5624,29 +5655,11 @@ function updateKeyPill() {
 }
 
 // ============================================================
-// LIVE PREVIEW — sticky widget that re-simulates as user edits stats
-// Only active after first Divine has produced a recommended ratio.
+// LIVE PREVIEW — REMOVED in v4.1 (was confusing).
+// Functions kept as no-ops to preserve any leftover call sites.
 // ============================================================
-let livePreviewTimer = null;
-function updateLivePreview() {
-  const lp = document.getElementById("live-preview");
-  if (!lp || !state.results) return;
-  const ratio = state.results.best.ratio;
-  const enemyRatio = getEnemyRatio();
-  // Quick simulation, fewer rounds for speed
-  const wr = simulateRatio(state.player, state.player.totalTroops, ratio,
-                           state.enemy, enemyRatio, state.enemy.totalTroops, 60);
-  const wrPct = Math.round(wr * 100);
-  lp.querySelector(".lp-value").textContent = `${wrPct}%`;
-  lp.querySelector(".lp-value").style.color = colorFor(wr);
-  lp.querySelector(".lp-ratio").textContent = fmtRatio(ratio);
-  lp.style.display = "block";
-}
-function scheduleLivePreview() {
-  if (!state.results) return;
-  clearTimeout(livePreviewTimer);
-  livePreviewTimer = setTimeout(updateLivePreview, 400);
-}
+function updateLivePreview() {}
+function scheduleLivePreview() {}
 
 // ============================================================
 // COMPARE BATTLES — pick two from history, show side by side
@@ -6317,18 +6330,40 @@ async function handleDivine() {
     const { best, grid, earlyExit } = result;
     if (progressBar) progressBar.style.width = "100%";
 
+    // ─── HIGH-PRECISION VERIFICATION PASS ───
+    // Re-run both best and baseline at 500 sims to reduce RNG noise.
+    // Then if baseline > best in this verified run, swap them — the
+    // baseline ratio was actually better (the grid pass got unlucky).
     const baselineRatio = DUNGEONS[dungeonKey].baseline;
-    const baselineWR = simulateRatio(
+    const verifiedBest = simulateRatio(
+      state.player, state.player.totalTroops,
+      best.ratio, state.enemy, enemyRatio, state.enemy.totalTroops,
+      500
+    );
+    const verifiedBaseline = simulateRatio(
       state.player, state.player.totalTroops,
       baselineRatio, state.enemy, enemyRatio, state.enemy.totalTroops,
-      200
+      500
     );
 
-    state.results = { best, grid, earlyExit, baseline: { ratio: baselineRatio, winRate: baselineWR } };
+    // If baseline beats our recommendation, recommend the baseline.
+    let finalBest = { ratio: best.ratio, winRate: verifiedBest };
+    let finalBaseline = { ratio: baselineRatio, winRate: verifiedBaseline };
+    if (verifiedBaseline > verifiedBest + 0.01) {
+      // Baseline genuinely better — swap
+      finalBest = { ratio: baselineRatio, winRate: verifiedBaseline };
+    }
+
+    state.results = {
+      best: finalBest,
+      grid,
+      earlyExit,
+      baseline: finalBaseline
+    };
     renderResults(state.results, dungeonKey);
 
     // Save last-cleared stage for this dungeon, when win rate >= 70%
-    if (best.winRate >= 0.7) {
+    if (finalBest.winRate >= 0.7) {
       saveLastStage(dungeonKey, document.getElementById("stage-select").value);
     }
   } catch (err) {
