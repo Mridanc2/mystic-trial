@@ -1884,6 +1884,96 @@ input.flash-extracted {
   color: #6ee7b7;
 }
 
+/* ============ EXPLANATION CARD (Why this result) ============ */
+.explanation-card {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.04), rgba(0, 0, 0, 0.15));
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+}
+.explanation-verdict {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.85rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 0.4rem;
+  text-align: center;
+}
+.explanation-verdict.no-go {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.explanation-verdict.caution {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+.explanation-verdict.favorable {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.explanation-verdict.dominant {
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+}
+.explanation-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.explanation-bullets li {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text);
+  padding: 0.45rem 0.6rem 0.45rem 0.75rem;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 0.35rem;
+  border-left: 2px solid var(--gold-dim);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+[dir="rtl"] .explanation-bullets li {
+  border-left: none;
+  border-right: 2px solid var(--gold-dim);
+}
+.explanation-bullets li.bad   { border-left-color: #f87171; }
+.explanation-bullets li.good  { border-left-color: #34d399; }
+.explanation-bullets li.note  { border-left-color: var(--gold); }
+[dir="rtl"] .explanation-bullets li.bad   { border-right-color: #f87171; }
+[dir="rtl"] .explanation-bullets li.good  { border-right-color: #34d399; }
+[dir="rtl"] .explanation-bullets li.note  { border-right-color: var(--gold); }
+.explanation-bullets li::before {
+  flex-shrink: 0;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.explanation-bullets li.bad::before  { content: "▼"; color: #f87171; }
+.explanation-bullets li.good::before { content: "▲"; color: #34d399; }
+.explanation-bullets li.note::before { content: "•"; color: var(--gold); }
+.explanation-bullets li b {
+  color: var(--gold);
+  font-weight: 700;
+}
+.explanation-action {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.4rem;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  color: var(--text);
+  font-weight: 600;
+}
+
 /* ============ HEATMAP ============ */
 .heatmap-container {
   display: flex;
@@ -2240,6 +2330,12 @@ footer .formula {
       <div class="ratio-grid" id="ratio-grid"></div>
       <div class="ratio-summary" id="ratio-summary"></div>
     </div>
+    <div class="result-card explanation-card">
+      <h4 data-i18n="why_this_result">💡 Why this result</h4>
+      <div id="explanation-verdict" class="explanation-verdict"></div>
+      <ul id="explanation-bullets" class="explanation-bullets"></ul>
+      <div id="explanation-action" class="explanation-action"></div>
+    </div>
     <div class="result-card">
       <h4 data-i18n="baseline_compare">vs. Community Baseline</h4>
       <div class="baseline-row" id="baseline-row"></div>
@@ -2446,6 +2542,26 @@ const I18N = {
     troop_inf: "Infantry",
     troop_cav: "Cavalry",
     troop_arc: "Archer",
+    stat_attack: "Attack",
+    stat_defense: "Defense",
+    stat_lethality: "Lethality",
+    stat_health: "Health",
+    why_this_result: "💡 Why this result",
+    verdict_no_go: "⚠ Critical disadvantage",
+    verdict_caution: "⚖ Mixed matchup",
+    verdict_favorable: "✓ Favorable matchup",
+    verdict_dominant: "★ Dominant matchup",
+    gap_disadv: "<b>{troop} {stat}</b>: yours {yours}% vs enemy {theirs}% — {mult}× weaker",
+    gap_adv: "<b>{troop} {stat}</b>: yours {yours}% vs enemy {theirs}% — {mult}× stronger",
+    power_disadv: "<b>Total power</b>: yours {pp} vs enemy {ep} — enemy fields {pmult}× your force",
+    power_adv: "<b>Total power</b>: yours {pp} vs enemy {ep} — you outnumber enemy {pmult}×",
+    rec_lean: "Recommended ratio leans on <b>{troop}</b> — your strongest unit",
+    rec_avoid: "Avoid sending <b>{troop}</b> — your weakest unit takes heavy losses",
+    rec_concentrate: "Concentrate fire: <b>{pct}% {troop}</b> maximizes damage output",
+    action_no_go: "Don't engage. Power up bonuses (especially <b>{stats}</b>) before retrying.",
+    action_caution: "Risky engagement. Send only if you can afford the losses.",
+    action_engage: "Send the recommended ratio. Expected ~<b>{wr}%</b> win rate.",
+    action_dominant: "Send the recommended ratio. Easy win at ~<b>{wr}%</b>.",
     label_dungeon: "Dungeon",
     label_stage: "Stage",
     stage_default: "Stages 1–9 (33/33/34)",
@@ -4394,8 +4510,191 @@ function findBestRatio(playerStats, totalP, enemyStats, enemyRatio, totalE, step
     }
   }
   if (onProgress) onProgress(grid.length, grid.length, "refining");
+
+  // FALLBACK: if every ratio loses (winRate=0), pick the ratio that
+  // does the most damage anyway — measured by kill-efficiency-weighted
+  // allocation. Better than the default [0.5, 0.2, 0.3] guess.
+  if (best.winRate === 0) {
+    const edges = computeEdges(playerStats, enemyStats);
+    let bestScore = -1;
+    let bestRatio = best.ratio;
+    for (const g of grid) {
+      const score = g.ratio[0] * edges.inf.killEff +
+                    g.ratio[1] * edges.cav.killEff +
+                    g.ratio[2] * edges.arc.killEff;
+      if (score > bestScore) {
+        bestScore = score;
+        bestRatio = g.ratio;
+      }
+    }
+    best = { ratio: bestRatio, winRate: 0 };
+  }
+
   best.winRate = simulateRatio(playerStats, totalP, best.ratio, enemyStats, enemyRatio, totalE, 200);
   return { best, grid, earlyExit };
+}
+
+// ============================================================
+// EXPLANATION GENERATOR — turns raw simulation output into
+// a human-readable verdict, top stat gaps, and an action line.
+// ============================================================
+function explainResult(playerStats, enemyStats, best, edges, totalP, totalE) {
+  const TROOPS = ["inf", "cav", "arc"];
+  const STATS = ["attack", "defense", "lethality", "health"];
+
+  // ─── Identify the biggest stat asymmetries ───
+  const gaps = [];
+  for (const t of TROOPS) {
+    for (const s of STATS) {
+      const yours = effective(playerStats[t][s]);
+      const theirs = effective(enemyStats[t][s]);
+      // ratio of effective values (effective = 1 + raw/100)
+      const ratio = yours / theirs;
+      // distance from parity
+      const severity = Math.abs(Math.log(ratio));
+      gaps.push({
+        troop: t,
+        stat: s,
+        yours: playerStats[t][s],
+        theirs: enemyStats[t][s],
+        ratio,
+        severity,
+        side: ratio < 0.95 ? "bad" : (ratio > 1.05 ? "good" : "even")
+      });
+    }
+  }
+  gaps.sort((a, b) => b.severity - a.severity);
+
+  // ─── Identify best/worst troop type by combined edge ───
+  let bestTroop = "inf", worstTroop = "inf";
+  let bestEdge = -Infinity, worstEdge = Infinity;
+  for (const t of TROOPS) {
+    if (edges[t].combined > bestEdge) { bestEdge = edges[t].combined; bestTroop = t; }
+    if (edges[t].combined < worstEdge) { worstEdge = edges[t].combined; worstTroop = t; }
+  }
+
+  // ─── Verdict + action based on win rate ───
+  const wr = Math.round(best.winRate * 100);
+  let verdictKey, verdictClass, actionTemplate;
+  if (wr < 5) {
+    verdictKey = "verdict_no_go"; verdictClass = "no-go";
+    actionTemplate = "action_no_go";
+  } else if (wr < 50) {
+    verdictKey = "verdict_caution"; verdictClass = "caution";
+    actionTemplate = "action_caution";
+  } else if (wr < 85) {
+    verdictKey = "verdict_favorable"; verdictClass = "favorable";
+    actionTemplate = "action_engage";
+  } else {
+    verdictKey = "verdict_dominant"; verdictClass = "dominant";
+    actionTemplate = "action_dominant";
+  }
+
+  // ─── Build bullet array ───
+  const bullets = [];
+
+  // Power asymmetry bullet (always included)
+  const powerRatio = totalP / Math.max(1, totalE);
+  if (powerRatio < 0.85) {
+    bullets.push({
+      type: "bad",
+      html: tr("power_disadv", {
+        pp: Math.round(totalP).toLocaleString(),
+        ep: Math.round(totalE).toLocaleString(),
+        pmult: (1 / powerRatio).toFixed(2)
+      })
+    });
+  } else if (powerRatio > 1.18) {
+    bullets.push({
+      type: "good",
+      html: tr("power_adv", {
+        pp: Math.round(totalP).toLocaleString(),
+        ep: Math.round(totalE).toLocaleString(),
+        pmult: powerRatio.toFixed(2)
+      })
+    });
+  }
+
+  // Top 3 stat gaps
+  const topGaps = gaps.slice(0, 3);
+  for (const g of topGaps) {
+    if (g.side === "even") continue;
+    const isBad = g.side === "bad";
+    const mult = isBad ? (1 / g.ratio).toFixed(1) : g.ratio.toFixed(1);
+    bullets.push({
+      type: isBad ? "bad" : "good",
+      html: tr(isBad ? "gap_disadv" : "gap_adv", {
+        troop: tr("troop_" + g.troop),
+        stat: tr("stat_" + g.stat),
+        yours: g.yours.toFixed(0),
+        theirs: g.theirs.toFixed(0),
+        mult
+      })
+    });
+  }
+
+  // Recommended-ratio rationale
+  const dom = best.ratio.indexOf(Math.max(...best.ratio));
+  const domTroop = TROOPS[dom];
+  const domPct = Math.round(best.ratio[dom] * 100);
+  if (domPct >= 80) {
+    bullets.push({
+      type: "note",
+      html: tr("rec_concentrate", {
+        troop: tr("troop_" + domTroop),
+        pct: domPct
+      })
+    });
+  } else if (domTroop === bestTroop) {
+    bullets.push({
+      type: "note",
+      html: tr("rec_lean", { troop: tr("troop_" + bestTroop) })
+    });
+  }
+  // Mention the worst troop type if it's heavily under-represented
+  const worstIdx = TROOPS.indexOf(worstTroop);
+  if (best.ratio[worstIdx] < 0.10 && bestEdge / Math.max(0.01, worstEdge) > 1.5) {
+    bullets.push({
+      type: "note",
+      html: tr("rec_avoid", { troop: tr("troop_" + worstTroop) })
+    });
+  }
+
+  // ─── Action line ───
+  // Find the worst stat for "power up X" hint (only used if no_go)
+  const worstStatGap = gaps.find(g => g.side === "bad");
+  const action = tr(actionTemplate, {
+    wr,
+    troop: tr("troop_" + bestTroop),
+    stats: worstStatGap
+      ? tr("troop_" + worstStatGap.troop) + " " + tr("stat_" + worstStatGap.stat)
+      : ""
+  });
+
+  return {
+    verdict: tr(verdictKey),
+    verdictClass,
+    bullets: bullets.slice(0, 5),
+    action
+  };
+}
+
+function renderExplanation(playerStats, enemyStats, best, edges, totalP, totalE) {
+  const verdEl = document.getElementById("explanation-verdict");
+  const bulEl  = document.getElementById("explanation-bullets");
+  const actEl  = document.getElementById("explanation-action");
+  if (!verdEl || !bulEl || !actEl) return;
+
+  const exp = explainResult(playerStats, enemyStats, best, edges, totalP, totalE);
+
+  verdEl.textContent = exp.verdict;
+  verdEl.className = "explanation-verdict " + exp.verdictClass;
+
+  bulEl.innerHTML = exp.bullets.map(b =>
+    `<li class="${b.type}">${b.html}</li>`
+  ).join("");
+
+  actEl.innerHTML = exp.action;
 }
 
 // ============================================================
@@ -5014,6 +5313,11 @@ function renderResults(results, dungeonKey) {
       <div class="val" style="color: ${colorFor(baseline.winRate)}">${Math.round(baseline.winRate*100)}%</div>
     </div>
   `;
+
+  // Explanation card
+  const edgesForExp = computeEdges(state.player, state.enemy);
+  renderExplanation(state.player, state.enemy, best, edgesForExp,
+                    state.player.totalTroops, state.enemy.totalTroops);
 
   const delta = best.winRate - baseline.winRate;
   const badge = document.getElementById("improvement-badge");
