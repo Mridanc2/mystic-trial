@@ -87,11 +87,13 @@ html { font-size: calc(16px * var(--font-scale)); transition: font-size 0.2s; }
 
 html, body {
   width: 100%;
+  max-width: 100vw;
   min-height: 100vh;
   font-family: 'Manrope', sans-serif;
   color: var(--text);
   background: var(--bg-deep);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* ============ COMPACT TOP-RIGHT SETTINGS ============ */
@@ -1927,7 +1929,7 @@ footer .formula {
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 480px) {
-  #app { padding: 1rem 0.75rem 3rem; }
+  #app { padding: 1rem 0.75rem 3rem; max-width: 100vw; }
   h1 { letter-spacing: 0.12em; }
   .stat-grid { gap: 0.3rem; }
   /* Bigger touch targets — finger friendly */
@@ -1951,6 +1953,39 @@ footer .formula {
     margin-top: 0.4rem;
     display: flex;
     gap: 0.3rem;
+  }
+  /* Tighten recruitment block on narrow screens */
+  .xxx-promo-cta {
+    font-size: 0.85rem;
+    padding: 0.75rem 1.5rem;
+    letter-spacing: 0.08em;
+  }
+  .xxx-promo-logo-inline {
+    font-size: 2rem;
+    letter-spacing: 0.12em;
+  }
+  .xxx-promo-mottos li {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+  .xxx-promo-subtitle {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+  }
+  .xxx-promo-sources {
+    font-size: 0.55rem;
+    word-break: break-word;
+  }
+  /* Tighter visit pill on mobile */
+  .visit-pill-label, .visit-pill-num { font-size: 0.72rem; padding: 0.35rem 0.75rem; }
+}
+
+/* Extra-narrow screens (iPhone SE etc) */
+@media (max-width: 360px) {
+  #app { padding: 0.85rem 0.5rem 3rem; }
+  .xxx-promo-cta {
+    font-size: 0.78rem;
+    padding: 0.7rem 1.2rem;
   }
 }
 
@@ -2142,7 +2177,7 @@ footer .formula {
     <button class="pvp-chip" data-preset="40,15,45" type="button">40/15/45 (archer)</button>
   </div>
   <div id="last-stage-hint" style="display:none; margin-top: 0.5rem; font-size: 0.7rem; color: var(--win); padding: 0.35rem 0.6rem; background: rgba(16, 185, 129, 0.08); border-radius: 0.3rem;"></div>
-  <div id="custom-ratio-help" class="help-text" style="display:none; margin-top: 0.5rem;" data-i18n="custom_ratio_help">For PvP fights (Castle, Bear, Arena). Type the enemy's troop percentages — they must add up to 100.</div>
+  <div id="custom-ratio-help" class="help-text" style="display:none; margin-top: 0.5rem;" data-i18n="custom_ratio_help">For custom enemy ratios from a scout report. Type the enemy's troop percentages — they must add up to 100.</div>
   <label style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.85rem; font-size: 0.78rem; color: var(--text-dim); cursor: pointer;">
     <input type="checkbox" id="squad-mode-toggle" style="width: 1rem; height: 1rem; accent-color: var(--gold);">
     <span data-i18n="squad_mode">Multi-squad mode (Coliseum / Radiant Spire)</span>
@@ -2442,7 +2477,7 @@ const I18N = {
     your_help: "Your own bonuses — these stay similar between battles.",
     enemy_help: "The opponent's bonuses — these change every fight.",
     context_help: "Pick which dungeon and stage you're trying to beat. Each one needs a different troop mix.",
-    custom_ratio_help: "For PvP fights (Castle, Bear, Arena). Type the enemy's troop percentages — they must add up to 100.",
+    custom_ratio_help: "For custom enemy ratios from a scout report. Type the enemy's troop percentages — they must add up to 100.",
     divine_help: "Tap when ready. The app simulates thousands of battles and picks the best ratio.",
     winrate_help: "Above 50% = you should win. Below 30% = risky, but still worth trying — use all 5 daily attempts.",
     ratio_apply_help: "In Kingshot: open the March screen, set these percentages, then attack.",
@@ -2580,7 +2615,7 @@ const I18N = {
     your_help: "Tus propios bonos — se mantienen similares entre batallas.",
     enemy_help: "Bonos del enemigo — cambian cada pelea.",
     context_help: "Elige qué mazmorra y etapa quieres pasar. Cada una necesita una mezcla diferente de tropas.",
-    custom_ratio_help: "Para PvP (Castillo, Oso, Arena). Escribe los porcentajes del enemigo — deben sumar 100.",
+    custom_ratio_help: "Para ratios personalizados (informe de exploración). Escribe los porcentajes del enemigo — deben sumar 100.",
     divine_help: "Toca cuando estés listo. La app simula miles de batallas y elige el mejor ratio.",
     winrate_help: "Más de 50% = deberías ganar. Menos de 30% = arriesgado, pero vale la pena — usa los 5 intentos diarios.",
     ratio_apply_help: "En Kingshot: abre la pantalla de Marcha, pon estos porcentajes y ataca.",
@@ -2718,7 +2753,7 @@ const I18N = {
     your_help: "Seus bônus — permanecem parecidos entre batalhas.",
     enemy_help: "Bônus do inimigo — mudam a cada luta.",
     context_help: "Escolha qual masmorra e estágio quer passar. Cada um precisa de uma mistura diferente.",
-    custom_ratio_help: "Para PvP (Castelo, Urso, Arena). Digite as porcentagens do inimigo — devem somar 100.",
+    custom_ratio_help: "Para ratios personalizados (relatório de scout). Digite as porcentagens do inimigo — devem somar 100.",
     divine_help: "Toque quando estiver pronto. O app simula milhares de batalhas e escolhe a melhor proporção.",
     winrate_help: "Acima de 50% = deve vencer. Abaixo de 30% = arriscado, mas vale tentar — use as 5 tentativas diárias.",
     ratio_apply_help: "No Kingshot: abra a tela de Marcha, defina essas porcentagens e ataque.",
@@ -2856,7 +2891,7 @@ const I18N = {
     your_help: "Vos bonus — restent similaires entre batailles.",
     enemy_help: "Bonus de l'ennemi — changent à chaque combat.",
     context_help: "Choisissez quel donjon et étape vous voulez passer. Chacun nécessite un mélange différent.",
-    custom_ratio_help: "Pour PvP (Château, Ours, Arène). Tapez les pourcentages de l'ennemi — doivent totaliser 100.",
+    custom_ratio_help: "Pour ratios personnalisés (rapport d'éclaireur). Tapez les pourcentages de l'ennemi — doivent totaliser 100.",
     divine_help: "Touchez quand prêt. L'app simule des milliers de batailles et choisit le meilleur ratio.",
     winrate_help: "Plus de 50% = vous devriez gagner. Moins de 30% = risqué, mais ça vaut le coup — utilisez les 5 essais quotidiens.",
     ratio_apply_help: "Dans Kingshot : ouvrez l'écran Marche, réglez ces pourcentages et attaquez.",
@@ -2994,7 +3029,7 @@ const I18N = {
     your_help: "Deine Boni — bleiben zwischen Kämpfen ähnlich.",
     enemy_help: "Gegner-Boni — ändern sich jeden Kampf.",
     context_help: "Wähle welchen Dungeon und welche Stufe du schlagen willst. Jeder braucht eine andere Mischung.",
-    custom_ratio_help: "Für PvP (Schloss, Bär, Arena). Tipp die gegnerischen Prozente — müssen 100 ergeben.",
+    custom_ratio_help: "Für eigene Verhältnisse (Späherbericht). Tipp die gegnerischen Prozente — müssen 100 ergeben.",
     divine_help: "Drücken wenn bereit. Die App simuliert tausende Kämpfe und wählt das beste Verhältnis.",
     winrate_help: "Über 50% = solltest gewinnen. Unter 30% = riskant, aber probieren — nutze alle 5 Tagesversuche.",
     ratio_apply_help: "In Kingshot: Marsch-Bildschirm öffnen, diese Prozente einstellen, angreifen.",
@@ -3132,7 +3167,7 @@ const I18N = {
     your_help: "I tuoi bonus — restano simili tra battaglie.",
     enemy_help: "Bonus del nemico — cambiano ogni battaglia.",
     context_help: "Scegli quale dungeon e livello vuoi passare. Ognuno ha bisogno di un mix diverso.",
-    custom_ratio_help: "Per PvP (Castello, Orso, Arena). Scrivi le percentuali del nemico — devono fare 100.",
+    custom_ratio_help: "Per rapporti personalizzati (rapporto scout). Scrivi le percentuali del nemico — devono fare 100.",
     divine_help: "Tocca quando pronto. L'app simula migliaia di battaglie e sceglie il miglior rapporto.",
     winrate_help: "Sopra 50% = dovresti vincere. Sotto 30% = rischioso ma vale la pena — usa i 5 tentativi giornalieri.",
     ratio_apply_help: "In Kingshot: apri la schermata Marcia, imposta queste percentuali, attacca.",
@@ -3270,7 +3305,7 @@ const I18N = {
     your_help: "Ваши бонусы — похожи между битвами.",
     enemy_help: "Бонусы врага — меняются каждый бой.",
     context_help: "Выберите какое подземелье и этап. У каждого свой состав.",
-    custom_ratio_help: "Для PvP (Замок, Медведь, Арена). Введите проценты врага — сумма должна быть 100.",
+    custom_ratio_help: "Для своих соотношений (отчёт разведки). Введите проценты врага — сумма должна быть 100.",
     divine_help: "Нажмите когда готовы. Приложение симулирует тысячи битв и выбирает лучшее соотношение.",
     winrate_help: "Выше 50% = должны выиграть. Ниже 30% = рискованно, но стоит — используйте все 5 попыток в день.",
     ratio_apply_help: "В Kingshot: откройте экран Марш, поставьте эти проценты, атакуйте.",
@@ -3408,7 +3443,7 @@ const I18N = {
     your_help: "你的加成 — 多次战斗间相似。",
     enemy_help: "敌人加成 — 每次战斗都会变。",
     context_help: "选择想通关的副本和阶段。每个需要不同的配比。",
-    custom_ratio_help: "用于 PvP（城堡、熊、竞技场）。输入敌人的百分比 — 总和必须为 100。",
+    custom_ratio_help: "用于自定义敌方比例（侦察报告）。输入敌人的百分比 — 总和必须为 100。",
     divine_help: "准备好就点。应用模拟数千场战斗并选出最佳比例。",
     winrate_help: "高于 50% = 应该会赢。低于 30% = 有风险但值得 — 用完每日 5 次。",
     ratio_apply_help: "在 Kingshot 中：打开行军界面，设置这些百分比，进攻。",
@@ -3546,7 +3581,7 @@ const I18N = {
     your_help: "自軍ボーナス — 戦闘間で似ている。",
     enemy_help: "敵ボーナス — 戦闘ごとに変わる。",
     context_help: "クリアしたいダンジョンとステージを選ぶ。それぞれ違う配分が必要。",
-    custom_ratio_help: "PvP 用（城・熊・闘技場）。敵の比率を入力 — 合計 100。",
+    custom_ratio_help: "カスタム敵比率用（偵察レポート）。敵の比率を入力 — 合計 100。",
     divine_help: "準備できたらタップ。何千回ものバトルをシミュして最適比を選ぶ。",
     winrate_help: "50% 超 = 勝てるはず。30% 未満 = リスクだが試す価値あり — 毎日 5 回全部使う。",
     ratio_apply_help: "Kingshot：行軍画面を開いて、この比率を設定して攻撃。",
@@ -3684,7 +3719,7 @@ const I18N = {
     your_help: "본인 보너스 — 전투 간에 비슷.",
     enemy_help: "적 보너스 — 전투마다 다름.",
     context_help: "클리어할 던전과 스테이지 선택. 각각 다른 조합이 필요.",
-    custom_ratio_help: "PvP용 (성, 곰, 아레나). 적의 비율 입력 — 합계 100.",
+    custom_ratio_help: "사용자 지정 적 비율용 (정찰 보고서). 적의 비율 입력 — 합계 100.",
     divine_help: "준비되면 탭. 앱이 수천 번의 전투를 시뮬레이션해 최적 비율을 선택.",
     winrate_help: "50% 이상 = 이길 듯. 30% 미만 = 위험해도 시도 가치 — 일일 5회 모두 사용.",
     ratio_apply_help: "Kingshot: 행군 화면 열고 이 비율 설정 후 공격.",
@@ -3822,7 +3857,7 @@ const I18N = {
     your_help: "مكافآتك — تظل متشابهة بين المعارك.",
     enemy_help: "مكافآت العدو — تتغير كل معركة.",
     context_help: "اختر الزنزانة والمرحلة المراد اجتيازها. كل واحدة تحتاج مزيجاً مختلفاً.",
-    custom_ratio_help: "للـ PvP (القلعة، الدب، الحلبة). اكتب نسب العدو — يجب أن يكون المجموع 100.",
+    custom_ratio_help: "لنسب العدو المخصصة (تقرير استطلاع). اكتب نسب العدو — يجب أن يكون المجموع 100.",
     divine_help: "اضغط عند الجاهزية. التطبيق يحاكي آلاف المعارك ويختار أفضل نسبة.",
     winrate_help: "فوق 50% = ستفوز. دون 30% = مخاطرة لكن جدير بالمحاولة — استخدم المحاولات الخمس اليومية.",
     ratio_apply_help: "في Kingshot: افتح شاشة المسيرة، اضبط هذه النسب، ثم هاجم.",
@@ -3960,7 +3995,7 @@ const I18N = {
     your_help: "הבונוסים שלך — דומים מקרב לקרב.",
     enemy_help: "הבונוסים של היריב — משתנים בכל קרב.",
     context_help: "בחר איזה מבוך ושלב אתה רוצה לעבור. כל אחד צריך תמהיל אחר.",
-    custom_ratio_help: "לקרבות PvP (טירה, דוב, ארנה). תכתוב את האחוזים של היריב — חייב להסתכם ב-100.",
+    custom_ratio_help: "ליריב מותאם (מ-scout report). תכתוב את האחוזים של היריב — חייב להסתכם ב-100.",
     divine_help: "לחץ כשמוכן. האפליקציה מדמה אלפי קרבות ובוחרת את היחס הכי טוב.",
     winrate_help: "מעל 50% = אמור לנצח. מתחת ל-30% = מסוכן אבל שווה לנסות — תשתמש בכל 5 הניסיונות היומיים.",
     ratio_apply_help: "ב-Kingshot: פתח את מסך המארץ', שים את האחוזים האלה, ותקוף.",
