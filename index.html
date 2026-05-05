@@ -1884,6 +1884,129 @@ input.flash-extracted {
   color: #6ee7b7;
 }
 
+/* ============ BOSS SUMMARY CARD ============ */
+#boss-summary {
+  margin-bottom: 2rem;
+}
+.boss-detected-banner {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.04));
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 0.55rem;
+  padding: 0.85rem 1rem;
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  margin-bottom: 1.1rem;
+}
+.boss-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.boss-banner-content {
+  flex: 1;
+}
+.boss-banner-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #fbbf24;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+.boss-banner-text {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.92;
+}
+.boss-card {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06), rgba(0, 0, 0, 0.2));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 0.6rem;
+  padding: 1.4rem 1.2rem 1.2rem;
+}
+.boss-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.04em;
+}
+.boss-verdict {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.4rem;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+}
+.boss-verdict.victory {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  text-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
+}
+.boss-verdict.defeat {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  text-shadow: 0 0 16px rgba(239, 68, 68, 0.4);
+}
+.boss-verdict.unknown {
+  color: var(--text-fade);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.boss-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+.boss-stat {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 0.45rem;
+  padding: 0.7rem 0.85rem;
+}
+.boss-stat-label {
+  font-size: 0.65rem;
+  color: var(--text-fade);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.boss-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.03em;
+}
+.boss-stat-val.good { color: #6ee7b7; }
+.boss-stat-val.bad  { color: #fca5a5; }
+.boss-recommendation {
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 0.4rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+.boss-recommendation b { color: var(--gold); font-weight: 700; }
+@media (max-width: 480px) {
+  .boss-name { font-size: 1.05rem; }
+  .boss-verdict { font-size: 1.3rem; }
+  .boss-stats-grid { grid-template-columns: 1fr; }
+}
+
 /* ============ EXPLANATION CARD (Why this result) ============ */
 .explanation-card {
   background: linear-gradient(135deg, rgba(212, 175, 55, 0.04), rgba(0, 0, 0, 0.15));
@@ -2302,6 +2425,44 @@ footer .formula {
 </div>
 <button class="btn-divine" id="btn-divine"><span data-i18n="btn_divine">⚡ Divine Optimal Ratio</span></button>
 
+<!-- Boss battle summary — appears when boss detected, hides normal results -->
+<div id="boss-summary" style="display:none;">
+  <div class="section-title"><span data-i18n="section_boss_summary">Boss Battle Analysis</span></div>
+  <div class="boss-detected-banner">
+    <span class="boss-icon">🐻</span>
+    <div class="boss-banner-content">
+      <div class="boss-banner-title" data-i18n="boss_detected_title">Boss battle detected</div>
+      <div class="boss-banner-text" data-i18n="boss_detected_explanation">This battle uses different mechanics (hero stats, gear, expedition skills) than Mystic Trial. The ratio simulator below is not used. Instead, here's a summary of how this fight went.</div>
+    </div>
+  </div>
+
+  <div class="boss-card">
+    <div class="boss-name" id="boss-name">—</div>
+    <div class="boss-verdict" id="boss-verdict">—</div>
+
+    <div class="boss-stats-grid">
+      <div class="boss-stat">
+        <div class="boss-stat-label" data-i18n="boss_squad">Squad sent</div>
+        <div class="boss-stat-val" id="boss-squad">—</div>
+      </div>
+      <div class="boss-stat">
+        <div class="boss-stat-label" data-i18n="boss_losses">Your losses</div>
+        <div class="boss-stat-val" id="boss-losses">—</div>
+      </div>
+      <div class="boss-stat">
+        <div class="boss-stat-label" data-i18n="boss_efficiency">Efficiency</div>
+        <div class="boss-stat-val" id="boss-efficiency">—</div>
+      </div>
+      <div class="boss-stat">
+        <div class="boss-stat-label" data-i18n="boss_dmg_dealt">Boss damage dealt</div>
+        <div class="boss-stat-val" id="boss-dmg-dealt">—</div>
+      </div>
+    </div>
+
+    <div class="boss-recommendation" id="boss-recommendation"></div>
+  </div>
+</div>
+
 <div id="results">
   <div class="section-title"><span data-i18n="section_results">The Oracle Speaks</span></div>
 
@@ -2474,11 +2635,11 @@ footer .formula {
   </div>
 </div>
 
-<footer style="opacity: 0.4; font-size: 0.6rem; padding: 1.5rem 0; text-align: center;"><div data-i18n="footer_credit">crafted for the alliance · v4.1</div></footer>
+<footer style="opacity: 0.4; font-size: 0.6rem; padding: 1.5rem 0; text-align: center;"><div data-i18n="footer_credit">crafted for the alliance · v4.8</div></footer>
 
 <div id="share-toast" role="status" aria-live="polite"></div>
 
-<!-- Live Win Rate widget removed in v4.1 (was confusing duplicate of Predicted Win Rate) -->
+<!-- Live Win Rate widget removed in v4.8 (was confusing duplicate of Predicted Win Rate) -->
 <div id="live-preview" style="display:none !important;"></div>
 
 <div id="compare-modal" role="dialog" aria-modal="true">
@@ -2555,11 +2716,31 @@ const I18N = {
     rec_lean: "Recommended ratio leans on <b>{troop}</b> — your strongest unit",
     rec_avoid: "Avoid sending <b>{troop}</b> — your weakest unit takes heavy losses",
     rec_concentrate: "Concentrate fire: <b>{pct}% {troop}</b> maximizes damage output",
-    action_no_go: "Don't engage. Power up bonuses (especially <b>{stats}</b>) before retrying.",
+    rec_concentrate_fallback: "<b>{pct}% {troop}</b> minimizes losses — the least-bad option when no ratio wins",
+    action_no_go: "<b>Don't attack — battle is unwinnable.</b> Power up bonuses (especially <b>{stats}</b>) before retrying. The recommended ratio is just the least-bad option, not a winning strategy.",
     action_caution: "Risky engagement. Send only if you can afford the losses.",
     action_engage: "Send the recommended ratio. Expected ~<b>{wr}%</b> win rate.",
     action_dominant: "Send the recommended ratio. Easy win at ~<b>{wr}%</b>.",
     rng_tie: "⚠ All ratios statistically tied — battle is unwinnable. Random variation (RNG) determines the small differences shown.",
+    auto_custom_pvp: "PvP mode — Stage set to Custom (enter enemy ratio from scout report)",
+    section_boss_summary: "Boss Battle Analysis",
+    boss_detected: "🐻 Boss battle detected: {name}",
+    boss_detected_title: "Boss battle detected",
+    boss_detected_explanation: "This battle uses different mechanics (hero stats, gear, expedition skills) than Mystic Trial. The ratio simulator below is not used. Instead, here's a summary of how this fight went.",
+    boss_unknown: "Boss",
+    boss_victory: "VICTORY",
+    boss_defeat: "DEFEAT",
+    boss_outcome_unknown: "Outcome unclear",
+    boss_squad: "Squad sent",
+    boss_losses: "Your losses",
+    boss_efficiency: "Efficiency",
+    boss_dmg_dealt: "Boss damage dealt",
+    boss_rec_dominant: "<b>Dominant performance.</b> You out-leveled this {name} with near-zero casualties. Try a higher-level boss for better rewards.",
+    boss_rec_clean: "<b>Clean kill.</b> Casualty rate is acceptable. You can farm this {name} regularly without major recovery.",
+    boss_rec_costly: "<b>Costly victory.</b> Heavy casualties — consider upgrading hero gear, expedition skills, or stronger troop tier before re-engaging this {name}.",
+    boss_rec_lost: "<b>Battle lost.</b> {name} requires more preparation: stronger hero, better gear, higher troop tier, or expedition skills tailored to this boss.",
+    boss_rec_unknown: "Unable to assess outcome from screenshots. Boss battles need clear Battle Overview to analyze efficiency.",
+    key_unverified: "⚠ couldn't verify (offline?)",
     label_dungeon: "Dungeon",
     label_stage: "Stage",
     stage_default: "Stages 1–9 (33/33/34)",
@@ -2576,7 +2757,7 @@ const I18N = {
     heatmap: "🗺️ Win-Rate Heatmap",
     heatmap_desc: "Each square = a tested ratio · golden ring = optimal · arc% = 100 − inf − cav",
     tip: "✦ Expedition mode has high RNG variance. Even at 30% predicted win rate, 1 in 5 attempts often clears. Use all 5 daily attempts.",
-    footer_credit: "crafted for the alliance · v4.1",
+    footer_credit: "crafted for the alliance · v4.8",
     share_copied: "✓ Link copied to clipboard",
     share_title: "Mystic Trial Result",
     no_results_yet: "Run an optimization first to share results",
@@ -2714,7 +2895,7 @@ const I18N = {
     heatmap: "🗺️ Mapa de Calor",
     heatmap_desc: "Cada cuadrado = un ratio probado · anillo dorado = óptimo · arc% = 100 − inf − cav",
     tip: "✦ Modo expedición tiene alta varianza RNG. Incluso con 30% predicho, 1 de 5 intentos suele pasar. Usa los 5 intentos diarios.",
-    footer_credit: "creado para la alianza · v4.1",
+    footer_credit: "creado para la alianza · v4.8",
     share_copied: "✓ Enlace copiado",
     share_title: "Resultado Mystic Trial",
     no_results_yet: "Ejecuta una optimización primero para compartir",
@@ -2852,7 +3033,7 @@ const I18N = {
     heatmap: "🗺️ Mapa de Calor",
     heatmap_desc: "Cada quadrado = uma proporção · anel dourado = ótima · arc% = 100 − inf − cav",
     tip: "✦ Modo Expedição tem alta variação RNG. Mesmo a 30%, 1 em 5 tentativas geralmente passa. Use as 5 diárias.",
-    footer_credit: "feito para a aliança · v4.1",
+    footer_credit: "feito para a aliança · v4.8",
     share_copied: "✓ Link copiado",
     share_title: "Resultado Mystic Trial",
     no_results_yet: "Execute uma otimização primeiro",
@@ -2990,7 +3171,7 @@ const I18N = {
     heatmap: "🗺️ Carte de Chaleur",
     heatmap_desc: "Chaque carré = un ratio testé · anneau doré = optimal · arc% = 100 − inf − cav",
     tip: "✦ Mode Expédition a une grande variance RNG. Même à 30%, 1 sur 5 passe souvent. Utilisez les 5 essais quotidiens.",
-    footer_credit: "fait pour l'alliance · v4.1",
+    footer_credit: "fait pour l'alliance · v4.8",
     share_copied: "✓ Lien copié",
     share_title: "Résultat Mystic Trial",
     no_results_yet: "Lancez d'abord une optimisation",
@@ -3128,7 +3309,7 @@ const I18N = {
     heatmap: "🗺️ Heatmap",
     heatmap_desc: "Jedes Quadrat = ein getestetes Verhältnis · goldener Ring = optimal",
     tip: "✦ Expedition-Modus hat hohe RNG-Varianz. Selbst bei 30% gewinnt 1 von 5. Nutze alle 5 Tagesversuche.",
-    footer_credit: "für die Allianz · v4.1",
+    footer_credit: "für die Allianz · v4.8",
     share_copied: "✓ Link kopiert",
     share_title: "Mystic Trial Ergebnis",
     no_results_yet: "Erst optimieren, dann teilen",
@@ -3266,7 +3447,7 @@ const I18N = {
     heatmap: "🗺️ Mappa di Calore",
     heatmap_desc: "Ogni quadrato = un rapporto · anello dorato = ottimo",
     tip: "✦ Modalità Spedizione ha alta varianza RNG. Anche al 30%, 1 su 5 passa. Usa tutti e 5 i tentativi.",
-    footer_credit: "creato per l'alleanza · v4.1",
+    footer_credit: "creato per l'alleanza · v4.8",
     share_copied: "✓ Link copiato",
     share_title: "Risultato Mystic Trial",
     no_results_yet: "Esegui prima un'ottimizzazione",
@@ -3404,7 +3585,7 @@ const I18N = {
     heatmap: "🗺️ Тепловая карта",
     heatmap_desc: "Квадрат = соотношение · золотое кольцо = оптимум",
     tip: "✦ Режим экспедиции имеет высокую RNG-вариативность. Даже при 30%, 1 из 5 проходит. Используйте все 5 попыток.",
-    footer_credit: "для альянса · v4.1",
+    footer_credit: "для альянса · v4.8",
     share_copied: "✓ Ссылка скопирована",
     share_title: "Результат Mystic Trial",
     no_results_yet: "Сначала запустите оптимизацию",
@@ -3542,7 +3723,7 @@ const I18N = {
     heatmap: "🗺️ 胜率热图",
     heatmap_desc: "每个方块 = 一个测试比例 · 金环 = 最优",
     tip: "✦ 远征模式 RNG 方差大。即使 30% 预测胜率，5 次尝试通常 1 次成功。每天用完 5 次。",
-    footer_credit: "为联盟打造 · v4.1",
+    footer_credit: "为联盟打造 · v4.8",
     share_copied: "✓ 链接已复制",
     share_title: "Mystic Trial 结果",
     no_results_yet: "请先运行优化",
@@ -3680,7 +3861,7 @@ const I18N = {
     heatmap: "🗺️ ヒートマップ",
     heatmap_desc: "各マス = テストした比率 · 金の輪 = 最適",
     tip: "✦ 遠征モードは RNG ばらつき大。30% 予測でも 5 回中 1 回は通る。毎日 5 回全部使おう。",
-    footer_credit: "アライアンスのため · v4.1",
+    footer_credit: "アライアンスのため · v4.8",
     share_copied: "✓ リンクをコピーしました",
     share_title: "Mystic Trial 結果",
     no_results_yet: "先に最適化を実行してください",
@@ -3818,7 +3999,7 @@ const I18N = {
     heatmap: "🗺️ 히트맵",
     heatmap_desc: "각 사각형 = 테스트한 비율 · 금색 링 = 최적",
     tip: "✦ 원정 모드는 RNG 변동이 큼. 30% 예측이라도 5번 중 1번은 통과. 매일 5번 모두 사용.",
-    footer_credit: "동맹을 위해 · v4.1",
+    footer_credit: "동맹을 위해 · v4.8",
     share_copied: "✓ 링크 복사됨",
     share_title: "Mystic Trial 결과",
     no_results_yet: "먼저 최적화 실행",
@@ -3956,7 +4137,7 @@ const I18N = {
     heatmap: "🗺️ خريطة الحرارة",
     heatmap_desc: "كل مربع = نسبة مختبرة · حلقة ذهبية = الأمثل",
     tip: "✦ وضع الحملة ذو تباين RNG عالٍ. حتى عند توقع 30%، 1 من 5 محاولات تنجح. استخدم كل 5 محاولات يومية.",
-    footer_credit: "من أجل التحالف · v4.1",
+    footer_credit: "من أجل التحالف · v4.8",
     share_copied: "✓ تم نسخ الرابط",
     share_title: "نتيجة Mystic Trial",
     no_results_yet: "شغّل التحسين أولاً",
@@ -4094,7 +4275,7 @@ const I18N = {
     heatmap: "🗺️ מפת חום",
     heatmap_desc: "כל ריבוע = יחס נבדק · טבעת זהב = אופטימלי",
     tip: "✦ למצב Expedition יש שונות RNG גבוהה. גם ב-30% צפי, 1 מ-5 בדרך כלל עובר. השתמש בכל 5 הניסיונות.",
-    footer_credit: "נבנה לאלייאנס · v4.1",
+    footer_credit: "נבנה לאלייאנס · v4.8",
     share_copied: "✓ הקישור הועתק",
     share_title: "תוצאת Mystic Trial",
     no_results_yet: "הרץ אופטימיזציה קודם",
@@ -4343,7 +4524,8 @@ const DUNGEONS = {
   crystal:  { icon: "💎", name: "Crystal Cave",    days: "Wed–Thu", baseline: [0.60, 0.20, 0.20], focus: "Charms only" },
   nexus:    { icon: "📚", name: "Knowledge Nexus", days: "Fri–Sat", baseline: [0.50, 0.20, 0.30], focus: "Tech only" },
   molten:   { icon: "🔥", name: "Molten Fort",     days: "Fri–Sat", baseline: [0.60, 0.15, 0.25], focus: "Gov Gear only" },
-  spire:    { icon: "🗼", name: "Radiant Spire",   days: "Sun",     baseline: [0.50, 0.15, 0.35], focus: "Everything" }
+  spire:    { icon: "🗼", name: "Radiant Spire",   days: "Sun",     baseline: [0.50, 0.15, 0.35], focus: "Everything" },
+  pvp:      { icon: "🏹", name: "PvP / Open World", days: "Any",    baseline: [0.50, 0.20, 0.30], focus: "All bonuses · scout report" }
 };
 
 const STAGE_RATIOS = {
@@ -4412,12 +4594,35 @@ function totalCount(side) {
   return side.inf.count + side.cav.count + side.arc.count;
 }
 
+// ============================================================
+// SEEDED PRNG (mulberry32) — deterministic random for simulations.
+// When the seed is fixed, same inputs always produce same outputs.
+// This is what lets us return stable recommendations.
+// ============================================================
+let _rngState = 0x12345678;
+function setSeed(seed) {
+  // Hash the seed to spread bits (handles small/zero seeds)
+  let h = seed | 0;
+  h = ((h ^ 0x9e3779b9) >>> 0);
+  h = (h ^ (h >>> 16)) * 0x85ebca6b >>> 0;
+  h = (h ^ (h >>> 13)) * 0xc2b2ae35 >>> 0;
+  h = (h ^ (h >>> 16)) >>> 0;
+  _rngState = h || 1;
+}
+function rnd() {
+  // mulberry32 — fast, good quality, deterministic
+  let t = (_rngState += 0x6D2B79F5) >>> 0;
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+}
+
 function killsDealt(attCount, attA, attL, defD, defH, bonus) {
   if (attCount <= 0 || defD <= 0 || defH <= 0) return 0;
-  let rng = 0.85 + Math.random() * 0.30;
+  let rng = 0.85 + rnd() * 0.30;
   // Hero skill proc: ~12% chance for a 2.5x burst (models lucky skill triggers
   // that the community describes as "wildly different outcomes with same setup")
-  if (Math.random() < 0.12) rng *= 2.5;
+  if (rnd() < 0.12) rng *= 2.5;
   return Math.sqrt(attCount) * (effective(attA) * effective(attL))
          / (effective(defD) * effective(defH)) * bonus * rng * 10;
 }
@@ -4476,11 +4681,51 @@ function simulateRatio(playerStats, totalP, ratio, enemyStats, enemyRatio, total
   return wins / trials;
 }
 
+// ============================================================
+// DETERMINISTIC KILL RATIO — no RNG, identical inputs → identical output
+// Used when every ratio in the grid loses (winRate=0). Picks the ratio
+// that minimizes losses relative to damage dealt — the "least-bad" choice.
+//
+// Based on the same Kingshot formula as singleBattle but with rng=1, no
+// burst chance, expected values only. Score is your-kills / enemy-kills.
+// ============================================================
+function deterministicKillRatio(playerStats, totalP, ratio, enemyStats, enemyRatio, totalE) {
+  const TROOPS = ["inf", "cav", "arc"];
+  // Effective stat: 1 + bonus%/100 (bonus=247 → multiplier 3.47)
+  const eff = (s) => 1 + (s || 0) / 100;
+
+  // Weighted offensive/defensive power per side
+  let yourOff = 0, yourDef = 0;
+  let enemyOff = 0, enemyDef = 0;
+  for (let i = 0; i < 3; i++) {
+    const t = TROOPS[i];
+    yourOff  += ratio[i]      * eff(playerStats[t].attack)  * eff(playerStats[t].lethality);
+    yourDef  += ratio[i]      * eff(playerStats[t].defense) * eff(playerStats[t].health);
+    enemyOff += enemyRatio[i] * eff(enemyStats[t].attack)   * eff(enemyStats[t].lethality);
+    enemyDef += enemyRatio[i] * eff(enemyStats[t].defense)  * eff(enemyStats[t].health);
+  }
+
+  // Kingshot formula: Kills ∝ √Troops × (Att × Leth) / (EnemyDef × EnemyHP)
+  const yourKills  = Math.sqrt(Math.max(1, totalP)) * yourOff  / Math.max(0.001, enemyDef);
+  const enemyKills = Math.sqrt(Math.max(1, totalE)) * enemyOff / Math.max(0.001, yourDef);
+
+  // Higher = better. In an unwinnable battle, we want to maximize damage
+  // dealt vs. damage taken. This metric stays meaningful even at 0% win.
+  return yourKills / Math.max(0.001, enemyKills);
+}
+
 function findBestRatio(playerStats, totalP, enemyStats, enemyRatio, totalE, step = 0.05, onProgress = null) {
+  // ─── DETERMINISTIC SEED ───
+  // Hash the inputs into a stable seed so identical inputs produce
+  // identical results. This is the core fix for "different recommendation
+  // every time" — same battle data → same answer, always.
+  const inputHash = hashInputs(playerStats, totalP, enemyStats, enemyRatio, totalE);
+  setSeed(inputHash);
+
   const grid = [];
-  let best = { ratio: [0.5, 0.2, 0.3], winRate: -1 };
   let earlyExit = false;
   let consecutivePerfect = 0;
+  const GRID_SIMS = 60; // Up from 25 — reduces RNG variance significantly
 
   // Estimate total ratios upfront (approx triangle count)
   const stepsPerSide = Math.round(1 / step) + 1;
@@ -4492,9 +4737,8 @@ function findBestRatio(playerStats, totalP, enemyStats, enemyRatio, totalE, step
       const a = 1 - i - c;
       if (a < -0.001) continue;
       const ratio = [+i.toFixed(3), +c.toFixed(3), +Math.max(0, a).toFixed(3)];
-      const wr = simulateRatio(playerStats, totalP, ratio, enemyStats, enemyRatio, totalE, 25);
+      const wr = simulateRatio(playerStats, totalP, ratio, enemyStats, enemyRatio, totalE, GRID_SIMS);
       grid.push({ ratio, winRate: wr });
-      if (wr > best.winRate) best = { ratio, winRate: wr };
       // Periodic progress callback (every 10 ratios to avoid UI spam)
       if (onProgress && grid.length % 10 === 0) {
         onProgress(grid.length, totalEstimate);
@@ -4509,17 +4753,35 @@ function findBestRatio(playerStats, totalP, enemyStats, enemyRatio, totalE, step
   }
   if (onProgress) onProgress(grid.length, grid.length, "refining");
 
-  // FALLBACK: if every ratio loses (winRate=0), pick the ratio that
-  // does the most damage anyway — measured by kill-efficiency-weighted
-  // allocation. Better than the default [0.5, 0.2, 0.3] guess.
+  // ─── TOP-N VERIFICATION ───
+  // Take the 5 highest-scored ratios from the grid and re-simulate each
+  // with 500 sims. This filters out "lucky RNG" picks. The actual best
+  // emerges from the deeper sample, not from a noisy 60-sim run.
+  const sorted = grid.slice().sort((a, b) => b.winRate - a.winRate);
+  const candidates = sorted.slice(0, 5);
+  let best = { ratio: [0.5, 0.2, 0.3], winRate: -1 };
+  for (const c of candidates) {
+    const verifiedWR = simulateRatio(
+      playerStats, totalP, c.ratio,
+      enemyStats, enemyRatio, totalE, 500
+    );
+    if (verifiedWR > best.winRate) {
+      best = { ratio: c.ratio, winRate: verifiedWR };
+    }
+  }
+
+  // ─── TRULY UNWINNABLE FALLBACK ───
+  // If even the top-5 are all 0% verified, fall back to the deterministic
+  // kill-ratio metric. This is a rare case (battle is mathematically lost
+  // regardless of strategy). At least the answer stays consistent.
   if (best.winRate === 0) {
-    const { edges } = computeEdges(playerStats, enemyStats);
-    let bestScore = -1;
-    let bestRatio = best.ratio;
+    let bestScore = -Infinity;
+    let bestRatio = candidates[0]?.ratio || best.ratio;
     for (const g of grid) {
-      const score = g.ratio[0] * edges.inf.killEff +
-                    g.ratio[1] * edges.cav.killEff +
-                    g.ratio[2] * edges.arc.killEff;
+      const score = deterministicKillRatio(
+        playerStats, totalP, g.ratio,
+        enemyStats, enemyRatio, totalE
+      );
       if (score > bestScore) {
         bestScore = score;
         bestRatio = g.ratio;
@@ -4528,17 +4790,154 @@ function findBestRatio(playerStats, totalP, enemyStats, enemyRatio, totalE, step
     best = { ratio: bestRatio, winRate: 0 };
   }
 
-  // Note: we don't refine winRate here anymore — caller does 500-sim verification.
   return { best, grid, earlyExit };
+}
+
+// ============================================================
+// hashInputs — fold all numeric inputs into a single 32-bit seed.
+// Same battle data → same hash → same seed → same simulation.
+// ============================================================
+function hashInputs(playerStats, totalP, enemyStats, enemyRatio, totalE) {
+  let h = 0x811c9dc5;
+  const fold = (n) => {
+    // Quantize floats so tiny rounding doesn't change the seed
+    const q = Math.round((n || 0) * 1000) | 0;
+    h = Math.imul(h ^ q, 0x01000193) >>> 0;
+  };
+  for (const t of ["inf", "cav", "arc"]) {
+    fold(playerStats[t].attack);
+    fold(playerStats[t].defense);
+    fold(playerStats[t].lethality);
+    fold(playerStats[t].health);
+    fold(enemyStats[t].attack);
+    fold(enemyStats[t].defense);
+    fold(enemyStats[t].lethality);
+    fold(enemyStats[t].health);
+  }
+  fold(totalP);
+  fold(totalE);
+  fold(enemyRatio[0]); fold(enemyRatio[1]); fold(enemyRatio[2]);
+  return h;
+}
+
+// ============================================================
+// BOSS SUMMARY — for PvE boss battles (Bear, Gilded Baron, etc.)
+// Different mechanics from Mystic Trial — show retrospective summary
+// instead of running the ratio simulator.
+// ============================================================
+function renderBossSummary(result) {
+  const card = document.getElementById("boss-summary");
+  const resultsBlock = document.getElementById("results");
+  if (!card) return;
+
+  // Hide normal results, show boss summary
+  card.style.display = "block";
+  if (resultsBlock) resultsBlock.style.display = "none";
+  card.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  // Boss name
+  const bossName = result.bossInfo?.name || tr("boss_unknown");
+  document.getElementById("boss-name").textContent = bossName;
+
+  // Verdict
+  const verdEl = document.getElementById("boss-verdict");
+  const victory = result.bossInfo?.victory;
+  if (victory === true) {
+    verdEl.textContent = "🏆 " + tr("boss_victory");
+    verdEl.className = "boss-verdict victory";
+  } else if (victory === false) {
+    verdEl.textContent = "💀 " + tr("boss_defeat");
+    verdEl.className = "boss-verdict defeat";
+  } else {
+    verdEl.textContent = tr("boss_outcome_unknown");
+    verdEl.className = "boss-verdict unknown";
+  }
+
+  // Stats grid
+  const squad = result.player?.totalTroops;
+  const losses = result.player?.losses;
+  const enemySquad = result.enemy?.totalTroops;
+  const enemyLosses = result.enemy?.losses;
+
+  document.getElementById("boss-squad").textContent =
+    typeof squad === "number" ? squad.toLocaleString() : "—";
+
+  // Losses (good if 0 or low, bad if high)
+  const lossEl = document.getElementById("boss-losses");
+  if (typeof losses === "number") {
+    lossEl.textContent = losses.toLocaleString();
+    if (squad && losses / squad < 0.05) lossEl.className = "boss-stat-val good";
+    else if (squad && losses / squad > 0.3) lossEl.className = "boss-stat-val bad";
+    else lossEl.className = "boss-stat-val";
+  } else {
+    lossEl.textContent = "—";
+    lossEl.className = "boss-stat-val";
+  }
+
+  // Efficiency = (1 - losses/squad) × 100%
+  const effEl = document.getElementById("boss-efficiency");
+  if (typeof squad === "number" && typeof losses === "number" && squad > 0) {
+    const eff = ((squad - losses) / squad * 100).toFixed(1);
+    effEl.textContent = eff + "%";
+    if (eff >= 95) effEl.className = "boss-stat-val good";
+    else if (eff < 70) effEl.className = "boss-stat-val bad";
+    else effEl.className = "boss-stat-val";
+  } else {
+    effEl.textContent = "—";
+    effEl.className = "boss-stat-val";
+  }
+
+  // Damage dealt to boss = enemy losses
+  const dmgEl = document.getElementById("boss-dmg-dealt");
+  if (typeof enemyLosses === "number") {
+    dmgEl.textContent = enemyLosses.toLocaleString();
+    dmgEl.className = "boss-stat-val good";
+  } else {
+    dmgEl.textContent = "—";
+    dmgEl.className = "boss-stat-val";
+  }
+
+  // Recommendation text
+  const recEl = document.getElementById("boss-recommendation");
+  let rec = "";
+  if (victory === true && typeof squad === "number" && typeof losses === "number" && squad > 0) {
+    const lossPct = losses / squad;
+    if (lossPct < 0.02) {
+      rec = tr("boss_rec_dominant", { name: bossName });
+    } else if (lossPct < 0.15) {
+      rec = tr("boss_rec_clean", { name: bossName });
+    } else {
+      rec = tr("boss_rec_costly", { name: bossName });
+    }
+  } else if (victory === false) {
+    rec = tr("boss_rec_lost", { name: bossName });
+  } else {
+    rec = tr("boss_rec_unknown");
+  }
+  recEl.innerHTML = rec;
+}
+
+function hideBossSummary() {
+  const card = document.getElementById("boss-summary");
+  const resultsBlock = document.getElementById("results");
+  if (card) card.style.display = "none";
+  if (resultsBlock) resultsBlock.style.display = "";
 }
 
 // ============================================================
 // EXPLANATION GENERATOR — turns raw simulation output into
 // a human-readable verdict, top stat gaps, and an action line.
 // ============================================================
-function explainResult(playerStats, enemyStats, best, edges, totalP, totalE) {
+function explainResult(playerStats, enemyStats, best, edges, totalP, totalE, grid) {
   const TROOPS = ["inf", "cav", "arc"];
   const STATS = ["attack", "defense", "lethality", "health"];
+
+  // ─── Check if ANY ratio in the grid has a non-zero winrate ───
+  // If literally no ratio wins, this is a true "unwinnable" battle.
+  // If some ratios win, the situation is winnable but the recommendation
+  // happens to land at 0% (rare RNG quirk).
+  const anyRatioWins = grid && grid.some(g => g.winRate > 0.01);
+  const trueDeadEnd = !anyRatioWins;
 
   // ─── Identify the biggest stat asymmetries ───
   const gaps = [];
@@ -4658,10 +5057,11 @@ function explainResult(playerStats, enemyStats, best, edges, totalP, totalE) {
   const dom = best.ratio.indexOf(Math.max(...best.ratio));
   const domTroop = TROOPS[dom];
   const domPct = Math.round(best.ratio[dom] * 100);
+  const isFallback = trueDeadEnd;
   if (domPct >= 80) {
     bullets.push({
       type: "note",
-      html: tr("rec_concentrate", {
+      html: tr(isFallback ? "rec_concentrate_fallback" : "rec_concentrate", {
         troop: tr("troop_" + domTroop),
         pct: domPct
       })
@@ -4700,13 +5100,13 @@ function explainResult(playerStats, enemyStats, best, edges, totalP, totalE) {
   };
 }
 
-function renderExplanation(playerStats, enemyStats, best, edges, totalP, totalE) {
+function renderExplanation(playerStats, enemyStats, best, edges, totalP, totalE, grid) {
   const verdEl = document.getElementById("explanation-verdict");
   const bulEl  = document.getElementById("explanation-bullets");
   const actEl  = document.getElementById("explanation-action");
   if (!verdEl || !bulEl || !actEl) return;
 
-  const exp = explainResult(playerStats, enemyStats, best, edges, totalP, totalE);
+  const exp = explainResult(playerStats, enemyStats, best, edges, totalP, totalE, grid);
 
   verdEl.textContent = exp.verdict;
   verdEl.className = "explanation-verdict " + exp.verdictClass;
@@ -4770,23 +5170,34 @@ function stretchTest(player, totalP, ratio, enemyBase, enemyRatio, totalE) {
 // ============================================================
 // VISION EXTRACTION (Gemini API)
 // ============================================================
-const EXTRACT_PROMPT = `Analyze these Kingshot Mystic Trial battle screenshots. Multiple screenshots may be provided that together represent ONE battle — combine information across all of them.
+const EXTRACT_PROMPT = `Analyze these Kingshot Mystic Trial / PvP / Boss battle screenshots. Multiple screenshots may be provided that together represent ONE battle — combine information across all of them.
+
+FIRST DETECT BATTLE TYPE:
+- "Boss" battle: Look for "Lv.X [Boss Name]", "Bear Event", "Gilded Baron", "menace", a single enemy portrait (not an army), or rewards mentioning EXP/Resources for "defeating the [Boss]". Boss battles have characteristic VERY HIGH bonus values for the enemy (often uniform 600-1000% across all stats).
+- "Mystic Trial / PvP": Two armies fighting, troop ratios shown for both sides, hero portraits visible per side.
 
 Common screens:
-- "Battle Overview" — shows total Squad/Losses for both sides (extract totalTroops from "Squad" row, NOT Losses; Squad is the PRE-battle count)
-- "Bonus Details" — shows the 12 stats per side (Attack/Defense/Lethality/Health × Inf/Cav/Arc). These are constant during battle so losses don't affect them.
-- "Troop Power Comparison" — shows the troop ratio split for BOTH sides. Look at the percentages under the hero portraits, OR the relative bar widths for Infantry/Cavalry/Archer rows. Read each side's INF/CAV/ARC percentages.
-- "Heroes" — usually not needed; ignore unless stats are visible
+- "Battle Overview" — shows total Squad/Losses for both sides (extract totalTroops from "Squad" row, NOT Losses)
+- "Bonus Details" — shows the 12 stats per side
+- "Troop Power Comparison" — shows the troop ratio split for BOTH sides
+- "Mail" subject like "Defeating the [Boss]" indicates boss battle
 
-In Bonus Details, the LEFT column is YOUR side, RIGHT column is the ENEMY. Green/red coloring just shows who is higher per stat — it doesn't change which side the number belongs to.
+In Bonus Details, the LEFT column is YOUR side, RIGHT column is the ENEMY.
 
-Return ONLY a JSON object with this exact structure (no markdown fences, no explanation):
+Return ONLY a JSON object with this exact structure (no markdown fences):
 {
+  "battleType": "pvp" or "boss",
+  "bossInfo": {
+    "name": "Lv.30 Gilded Baron" or null,
+    "level": 30 or null,
+    "victory": true/false/null
+  },
   "player": {
     "inf": {"attack": null, "defense": null, "lethality": null, "health": null},
     "cav": {"attack": null, "defense": null, "lethality": null, "health": null},
     "arc": {"attack": null, "defense": null, "lethality": null, "health": null},
     "totalTroops": null,
+    "losses": null,
     "ratio": [null, null, null]
   },
   "enemy": {
@@ -4794,15 +5205,19 @@ Return ONLY a JSON object with this exact structure (no markdown fences, no expl
     "cav": {"attack": null, "defense": null, "lethality": null, "health": null},
     "arc": {"attack": null, "defense": null, "lethality": null, "health": null},
     "totalTroops": null,
+    "losses": null,
     "ratio": [null, null, null]
   }
 }
 
 Rules:
+- battleType: "boss" if any boss indicators present, otherwise "pvp".
+- bossInfo: only fill if battleType is "boss". Extract name and level from screen text. victory=true if "Victory!" shown, false if "Defeat!", null if unknown.
+- For Boss battles, still extract player.totalTroops, player.losses, enemy.totalTroops, enemy.losses if visible — they're useful for the boss summary.
 - Numbers should be the percentage as a number (e.g., 247 for "247%").
-- If a value is not visible in any provided screenshot, use null.
-- For totalTroops, use the "Squad" row from the Battle Overview screen (NOT "Losses").
-- For "ratio", give [inf%, cav%, arc%] as decimals 0..1 summing to ~1.0 (e.g. [0.4, 0.3, 0.3] for 40/30/30). If only 2 troop types are visible (one is 0%), use 0 for the missing one. Set all to null if not visible.`;
+- If a value is not visible, use null.
+- For totalTroops, use the "Squad" row (NOT "Losses").
+- For "ratio", give [inf%, cav%, arc%] as decimals 0..1 summing to ~1.0.`;
 
 async function callGemini(apiKey, images, onProgress = null) {
   // Models in priority order — try fastest first, fall back to others on overload
@@ -5338,7 +5753,8 @@ function renderResults(results, dungeonKey) {
   // Explanation card
   const edgesResult = computeEdges(state.player, state.enemy);
   renderExplanation(state.player, state.enemy, best, edgesResult.edges,
-                    state.player.totalTroops, state.enemy.totalTroops);
+                    state.player.totalTroops, state.enemy.totalTroops,
+                    results.grid);
 
   const delta = best.winRate - baseline.winRate;
   const badge = document.getElementById("improvement-badge");
@@ -5655,7 +6071,7 @@ function updateKeyPill() {
 }
 
 // ============================================================
-// LIVE PREVIEW — REMOVED in v4.1 (was confusing).
+// LIVE PREVIEW — REMOVED in v4.8 (was confusing).
 // Functions kept as no-ops to preserve any leftover call sites.
 // ============================================================
 function updateLivePreview() {}
@@ -6205,6 +6621,19 @@ async function handleExtract() {
       }
       btn.innerHTML = `<span class="loader"></span> ${label}`;
     });
+
+    // ─── BOSS BATTLE BRANCH ───
+    // If Gemini detected this is a boss battle, show a dedicated boss-mode
+    // summary card instead of the normal Mystic Trial analysis.
+    if (result.battleType === "boss") {
+      renderBossSummary(result);
+      showStatus("extract-status", "success",
+        tr("boss_detected", { name: result.bossInfo?.name || tr("boss_unknown") }));
+      btn.disabled = false;
+      btn.innerHTML = tr("btn_extract");
+      return;
+    }
+
     mergeExtracted(state.player, result.player);
     mergeExtracted(state.enemy, result.enemy);
     refreshStatInputs();
@@ -6283,6 +6712,8 @@ function mergeExtracted(current, extracted) {
 }
 
 async function handleDivine() {
+  // Hide boss-summary card if it was previously shown
+  hideBossSummary();
   const btn = document.getElementById("btn-divine");
   btn.disabled = true;
   btn.innerHTML = `
@@ -6330,27 +6761,21 @@ async function handleDivine() {
     const { best, grid, earlyExit } = result;
     if (progressBar) progressBar.style.width = "100%";
 
-    // ─── HIGH-PRECISION VERIFICATION PASS ───
-    // Re-run both best and baseline at 500 sims to reduce RNG noise.
-    // Then if baseline > best in this verified run, swap them — the
-    // baseline ratio was actually better (the grid pass got unlucky).
+    // best.winRate is already verified at 500 sims by top-N pass in findBestRatio.
+    // Now measure the community baseline at the same precision (seed already
+    // set by findBestRatio, so this stays deterministic).
     const baselineRatio = DUNGEONS[dungeonKey].baseline;
-    const verifiedBest = simulateRatio(
-      state.player, state.player.totalTroops,
-      best.ratio, state.enemy, enemyRatio, state.enemy.totalTroops,
-      500
-    );
     const verifiedBaseline = simulateRatio(
       state.player, state.player.totalTroops,
       baselineRatio, state.enemy, enemyRatio, state.enemy.totalTroops,
       500
     );
 
-    // If baseline beats our recommendation, recommend the baseline.
-    let finalBest = { ratio: best.ratio, winRate: verifiedBest };
+    // If baseline genuinely beats our recommendation, swap. (Edge case —
+    // shouldn't happen with proper top-N, but safety net.)
+    let finalBest = { ratio: best.ratio, winRate: best.winRate };
     let finalBaseline = { ratio: baselineRatio, winRate: verifiedBaseline };
-    if (verifiedBaseline > verifiedBest + 0.01) {
-      // Baseline genuinely better — swap
+    if (verifiedBaseline > best.winRate + 0.01) {
       finalBest = { ratio: baselineRatio, winRate: verifiedBaseline };
     }
 
@@ -6408,8 +6833,10 @@ function bindApiKey() {
 
 async function validateApiKey(key) {
   const status = document.getElementById("api-key-status");
+  // Quick format check first — Gemini keys start with "AIza" and are ~39 chars
+  const formatLooksRight = /^AIza[\w-]{30,}$/.test(key);
+
   try {
-    // Tiny ping request — list models is fast & free
     const res = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(key)}`,
       { method: "GET" }
@@ -6418,12 +6845,20 @@ async function validateApiKey(key) {
       status.textContent = tr("key_valid");
       status.style.color = "var(--win)";
     } else {
+      // Server responded with 4xx/5xx — key is genuinely invalid or expired
       status.textContent = tr("key_invalid");
       status.style.color = "var(--loss)";
     }
   } catch (e) {
-    status.textContent = tr("key_invalid");
-    status.style.color = "var(--loss)";
+    // Network/CORS error (common when running from file:// or offline).
+    // Don't claim the key is invalid — just say we couldn't verify.
+    if (formatLooksRight) {
+      status.textContent = tr("key_unverified");
+      status.style.color = "var(--text-fade)";
+    } else {
+      status.textContent = tr("key_invalid");
+      status.style.color = "var(--loss)";
+    }
   }
 }
 
@@ -6564,12 +6999,28 @@ function init() {
       showToast(tr("auto_squad"));
       if (state.results) renderSquadMode(state.results.best);
     }
+    // PvP requires custom enemy ratio - flip Stage automatically
+    if (dungeon === "pvp") {
+      const stageSel = document.getElementById("stage-select");
+      if (stageSel && stageSel.value !== "custom") {
+        stageSel.value = "custom";
+        stageSel.dispatchEvent(new Event("change", { bubbles: true }));
+        showToast(tr("auto_custom_pvp"));
+      }
+    }
   });
   renderLastStage();
 
   document.getElementById("file-input").addEventListener("change", (e) => {
     handleFiles(e.target.files);
     e.target.value = "";
+  });
+  // Safety net: explicit click forwarding from label → input.
+  // Some Android WebViews / file:// contexts don't auto-trigger input click
+  // from label-for binding. This makes Choose Files work everywhere.
+  document.querySelector('label.upload-trigger[for="file-input"]')?.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("file-input").click();
   });
   document.getElementById("btn-extract").addEventListener("click", handleExtract);
   document.getElementById("btn-divine").addEventListener("click", handleDivine);
